@@ -1,0 +1,28 @@
+{
+    "python.analysis.typeCheckingMode": "basic",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "postgres",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "docker-postgres",
+            "database": "dev",
+            "username": "postgres",
+            "password": "postgres"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "mysql",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "docker-mysql",
+            "database": "dev",
+            "username": "mysql",
+            "password": "mysqlPassword"
+        }
+    ]
+}

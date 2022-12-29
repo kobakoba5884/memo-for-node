@@ -1,0 +1,6 @@
+.docker
+node_modules
+dist
+
+# clear cach command 
+# git rm -r --cached . 
