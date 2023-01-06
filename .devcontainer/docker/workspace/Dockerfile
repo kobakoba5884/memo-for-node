@@ -51,7 +51,7 @@ ARG NODE_VERSION
 RUN su ${USER_NAME} --command \
     'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
     && source ~/.nvm/nvm.sh \
-    && nvm install "${NODE_VERSION}" \
+    && nvm install --lts \
     && nvm alias default "${NODE_VERSION}" \
     && nvm use default'
 
