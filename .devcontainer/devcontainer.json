@@ -36,6 +36,7 @@
 		"esbenp.prettier-vscode",
 		"streetsidesoftware.code-spell-checker",
 		"ms-azuretools.vscode-docker",
-		"dbaeumer.vscode-eslint"
+		"dbaeumer.vscode-eslint",
+		"mongodb.mongodb-vscode"
 	]
   }
