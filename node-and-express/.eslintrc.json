@@ -1,0 +1,28 @@
+{
+    "env": {
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended"
+    ],
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "rules": {
+        "indent": ["error", 4],
+        "quotes": ["error", "single"],
+        "semi": ["error", "never"],
+        "block-spacing": "error",
+        "eol-last": ["error", "always"],
+        "no-var": "error", 
+        "max-params": ["error", 3],
+        "eqeqeq": ["error", "always"],
+        "yoda": "error",
+        "no-shadow": "error",
+        "no-unreachable": "error"
+    }
+}
