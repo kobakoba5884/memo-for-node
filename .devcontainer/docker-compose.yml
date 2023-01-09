@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   workspace:
-    container_name: ${PROJECT_NAME:-java}-workspace
+    container_name: ${PROJECT_NAME:-node}-workspace
     build:
       context: ./docker/workspace
       args:
@@ -10,10 +10,6 @@ services:
         USER_GROUP_NAME: ${USER_GROUP_NAME:-workspace}
         USER_UID: ${USER_UID:-1000}
         USER_GID: ${USER_GID:-1000}
-        JAVA_VERSION: ${JAVA_VERSION:-17.0.4-amzn}
-        GRADLE_VERSION: ${GRADLE_VERSION:-7.3}
-        PYTHON_VERSION: ${PYTHON_VERSION:-3.10.5}
-        LATEST_C_VERSION: ${LATEST_C_VERSION:-12}
         NODE_VERSION: ${NODE_VERSION:-v18.7.0}
         LOCALE: ${LOCALE:-en_US.UTF-8}
     tty: true
@@ -23,4 +19,31 @@ services:
       - ../:/home/${USER_NAME:-vscode}/workspace:cached
       - ~/.aws:/home/${USER_NAME:-vscode}/.aws
     ports:
-      - 9999:9999
+      - ${WORKSPACE_PORT:-9999}:9999
+
+  mongodb:
+    image: mongo:6.0
+    restart: unless-stopped
+    container_name: ${PROJECT_NAME:-node}-mongodb-container
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER:-dbuser}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD:-thisIsReallyStrongPassword123}
+    ports:
+      - ${MONGO_PORT:-27017}:27017
+    volumes:
+      - ./.docker/mongodb:/data/db
+
+  mongo-express:
+    image: mongo-express:1.0.0-alpha.4
+    container_name: ${PROJECT_NAME:-node}-mongo-express-container
+    restart: always
+    ports:
+      - ${MONGO_EXPRESS_PORT:-8081}:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_USER:-dbuser}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD:-thisIsReallyStrongPassword123}
+      ME_CONFIG_MONGODB_SERVER: ${MONGO_HOST:-mongodb}
+      ME_CONFIG_MONGODB_PORT: ${MONGO_PORT:-27017}
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: ${ME_CONFIG_MONGODB_ENABLE_ADMIN:-true}
+    depends_on:
+      - mongodb
