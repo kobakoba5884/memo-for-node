@@ -15,6 +15,9 @@ services:
     tty: true
     environment:
       TZ: ${TIME_ZONE:-Asia/Tokyo}
+      DB_USER: ${DB_USER:-dbuser}
+      DB_PASSWORD: ${DB_PASSWORD:-thisIsReallyStrongPassword123}
+      DB_NAME: ${DB_NAME:-dev}
     volumes:
       - ../:/home/${USER_NAME:-vscode}/workspace:cached
       - ~/.aws:/home/${USER_NAME:-vscode}/.aws
@@ -28,6 +31,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USER:-dbuser}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD:-thisIsReallyStrongPassword123}
+      MONGO_INITDB_DATABASE: ${DB_NAME:-dev}
     ports:
       - ${MONGO_PORT:-27017}:27017
     volumes:
