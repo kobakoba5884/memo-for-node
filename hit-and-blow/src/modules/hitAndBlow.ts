@@ -8,7 +8,7 @@ export class HitAndBlow {
   private tryCount: number = 0;
   private mode: Mode = "normal";
 
-  async setting() {
+  public setting = async () => {
     this.mode = await promptSelect("please enter preferred mode", modes);
     const answerLength = this.getAnswerLength();
 
@@ -22,7 +22,7 @@ export class HitAndBlow {
     }
   }
 
-  private getAnswerLength() {
+  private getAnswerLength = () => {
     switch (this.mode) {
       case "normal":
         return 3;
@@ -33,7 +33,7 @@ export class HitAndBlow {
     }
   }
 
-  async play() {
+  public play = async () => {
     const answerLength = this.getAnswerLength();
     const inputArray = (
       await promptInput(`please enter ${answerLength} number with ,`)
@@ -56,7 +56,7 @@ export class HitAndBlow {
     }
   }
 
-  private check(input: string[]) {
+  private check = (input: string[]) => {
     let hitCount = 0;
     let blowCount = 0;
 
@@ -74,7 +74,7 @@ export class HitAndBlow {
     };
   }
 
-  private validate(inputArray: string[]) {
+  private validate = (inputArray: string[]) => {
     const isLengthValid = inputArray.length === this.answer.length;
     const isAllAnswerSourceOption = inputArray.every((val) =>
       this.answerSource.includes(val)
@@ -83,12 +83,12 @@ export class HitAndBlow {
     return isLengthValid && isAllAnswerSourceOption;
   }
 
-  end() {
+  public end = () => {
     printLine(`hit!\ntry count is ${this.tryCount}.`);
     this.reset();
   }
 
-  private reset() {
+  private reset = () => {
     this.answer = [];
     this.tryCount = 0;
   }

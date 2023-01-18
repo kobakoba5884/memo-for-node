@@ -6,11 +6,11 @@ export class GameProcedure {
   private currentGameTitle = "hit and blow";
   private currentGame = new HitAndBlow();
 
-  public async start() {
+  public start = async () => {
     await this.play();
-  }
+  };
 
-  private async play() {
+  private play = async () => {
     printLine(`===\ncurrent game is ${this.currentGameTitle}.\n===`);
     await this.currentGame.setting();
     await this.currentGame.play();
@@ -29,10 +29,10 @@ export class GameProcedure {
       const neverValue: never = action;
       throw new Error(`${neverValue} is an invalid action.`);
     }
-  }
+  };
 
-  private end() {
+  private end = () => {
     printLine("game be finished!!");
     process.exit();
-  }
+  };
 }
