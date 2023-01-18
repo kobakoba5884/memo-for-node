@@ -47,13 +47,15 @@ RUN apt-get -y install locales \
 # ---------------------------------- nvm for javascript ----------------------------------
 # default node version
 ARG NODE_VERSION
+ARG NODE_GLOBA_PKG="prettier"
 
 RUN su ${USER_NAME} --command \
     'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
     && source ~/.nvm/nvm.sh \
     && nvm install --lts \
     && nvm alias default "${NODE_VERSION}" \
-    && nvm use default'
+    && nvm use default \
+    && npm i --global ${NODE_GLOBA_PKG}}'
 
 # ---------------------------------- aws cli ----------------------------------
 

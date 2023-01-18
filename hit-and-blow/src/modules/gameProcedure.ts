@@ -17,7 +17,7 @@ export class GameProcedure {
     this.currentGame.end();
 
     const action = await promptSelect<NextAction>(
-      "do you want continue?",
+      "do you wanna continue?",
       nextActions
     );
 

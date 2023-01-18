@@ -21,22 +21,17 @@
       "liveshare.autoShareTerminals": true
     },
     "extensions": [
-		"vscjava.vscode-java-pack",
-		"vscjava.vscode-gradle",
-		"vscjava.vscode-spring-initializr",
 		"rangav.vscode-thunder-client",
 		"mtxr.sqltools",
 		"mhutchie.git-graph",
 		"ms-vsliveshare.vsliveshare",
 		"mtxr.sqltools-driver-pg",
 		"ms-vscode.live-server",
-		"amazonwebservices.aws-toolkit-vscode",
-		"ms-python.python",
-		"mtxr.sqltools-driver-mysql",
 		"esbenp.prettier-vscode",
 		"streetsidesoftware.code-spell-checker",
 		"ms-azuretools.vscode-docker",
 		"dbaeumer.vscode-eslint",
-		"mongodb.mongodb-vscode"
+		"mongodb.mongodb-vscode",
+		"Swellaby.node-pack"
 	]
   }
