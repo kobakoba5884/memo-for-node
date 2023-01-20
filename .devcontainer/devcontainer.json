@@ -33,6 +33,8 @@
 		"dbaeumer.vscode-eslint",
 		"mongodb.mongodb-vscode",
 		"Swellaby.node-pack",
+		"eamodio.gitlens"
 		"GitHub.vscode-pull-request-github"
+
 	]
   }
