@@ -11,7 +11,7 @@ export const parseJSONAsync = (json, callback) => {
         setTimeout(() => {
             callback(JSON.parse(json))
         }, 1000)
-    }catch(error){
+    }catch(error){/home/vscode/workspace/node-hands-on/callback/error-handling
         console.log('error contain: ', error)
         callback({})
     }
