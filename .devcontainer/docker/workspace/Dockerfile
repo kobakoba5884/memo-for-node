@@ -55,7 +55,7 @@ RUN su ${USER_NAME} --command \
     && nvm install --lts \
     && nvm alias default "${NODE_VERSION}" \
     && nvm use default \
-    && npm i --global ${NODE_GLOBA_PKG}}'
+    && npm i --global ${NODE_GLOBA_PKG}'
 
 # ---------------------------------- aws cli ----------------------------------
 

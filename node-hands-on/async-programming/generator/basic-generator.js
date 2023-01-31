@@ -34,3 +34,38 @@ export function* tryCatchGeneratorFunc() {
     yield 2;
   }
 }
+
+const parseJSONAsync = (json) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        resolve(JSON.parse(json));
+      } catch (err) {
+        reject(err);
+      }
+    }, 1000);
+  });
+};
+
+export function* asyncWithGeneratorFunc(json) {
+  try {
+    const result = yield parseJSONAsync(json);
+    console.log("parse result", result);
+  } catch (err) {
+    console.log("catching error ", err);
+  }
+}
+
+export const handleAsyncWithGenerator = (generator, resolved) => {
+  const { done, value } = generator.next(resolved);
+
+  if (done) {
+    return Promise.resolve(value);
+  }
+
+  return value.then(
+    (resolved) => handleAsyncWithGenerator(generator, resolved),
+    (err) => generator.throw(err)
+  );
+};
+

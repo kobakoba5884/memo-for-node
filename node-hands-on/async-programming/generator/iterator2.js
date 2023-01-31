@@ -28,3 +28,17 @@ const tryCatchGenerator = tryCatchGeneratorFunc();
 console.log(tryCatchGenerator.next());
 console.log(tryCatchGenerator.throw(new Error("error")));
 console.log(tryCatchGenerator.next());
+
+try{
+    console.log(tryCatchGenerator.throw(new Error("error")));
+}catch(err){
+    console.log('catch err out of generator')
+}
+
+console.log("-----------------------------------");
+
+const iterator2 = generatorArgsFunc();
+console.log(iterator2.next());
+console.log(iterator2.next());
+console.log(iterator2.next());
+console.log(iterator2.next());
