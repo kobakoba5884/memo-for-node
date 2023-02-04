@@ -16,7 +16,10 @@
     "liveshare.allowGuestTaskControl": true,
     "liveshare.languages.allowGuestCommandControl": true,
     "liveshare.publishWorkspaceInfo": true,
-    "liveshare.autoShareTerminals": true
+    "liveshare.autoShareTerminals": true,
+    "liveshare.accessibility.accessibilityFeaturesEnabled": "off",
+    "liveshare.accessibility.soundsEnabled": false,
+    "liveshare.accessibility.voiceEnabled": false
   },
   "extensions": [
     "rangav.vscode-thunder-client",

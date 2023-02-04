@@ -11,7 +11,7 @@ LABEL version="1.0"
 LABEL description="my-workspace"
 
 # general packages
-ARG PKG="vim curl unzip zip sudo tzdata git"
+ARG PKG="vim curl unzip zip sudo tzdata git net-tools lsof"
 
 SHELL ["/bin/bash", "-c"]
 
@@ -66,4 +66,13 @@ RUN apt-get install -y less \
     && unzip ${ZIP_FILE}  \
     && ./aws/install \
     && rm -f ${ZIP_FILE}
+
+# ---------------------------------- github cli ----------------------------------
+
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    && apt-get update \
+    && apt-get install gh -y \
+    && gh --version
 
