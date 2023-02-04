@@ -1,6 +1,7 @@
 .docker
 node_modules
 dist
+.next
 
 # clear cach command 
 # git rm -r --cached . 
