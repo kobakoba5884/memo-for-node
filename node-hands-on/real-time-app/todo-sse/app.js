@@ -7,11 +7,15 @@ let todos = [
   { id: 2, title: "subject", completed: true },
 ];
 
+let sseSenders = [];
+
+let sseId = 1;
+
 const app = express();
 
 app.use(express.json());
 
-app.get(`${endpoint}/:id(\\d+)?`, (req, res, next) => {
+app.get(endpoint, (req, res, next) => {
   console.log("req.query", req.query);
   const completed = req.query.completed;
   console.log("completed", completed);
@@ -28,6 +32,23 @@ app.get(`${endpoint}/:id(\\d+)?`, (req, res, next) => {
 
   let convertedCompleted = completed === "true";
   res.json(todos.filter((todo) => todo.completed === convertedCompleted));
+});
+
+app.get(`${endpoint}/events`, (req, res) => {
+  req.socket.setTimeout(1000);
+  res.set({
+    "Content-Type": "text/event-stream",
+  });
+
+  const send = (id, data) => res.write(`id: ${id}\ndata: ${data}\n\n`);
+  sseSenders.push(send);
+
+  send(sseId, JSON.stringify(todos));
+
+  req.on("close", () => {
+    res.end();
+    sseSenders = sseSenders.filter((_send) => _send !== send);
+  });
 });
 
 app.post(endpoint, (req, res, next) => {
@@ -49,37 +70,9 @@ app.post(endpoint, (req, res, next) => {
   todos.push(todo);
 
   res.status(201).json(todo);
+
+  onUpdateTodos();
 });
-
-app.use(`${endpoint}/:id(\\d+)?`, (req, _, next) => {
-  const targetId = Number(req.params.id);
-  const todo = todos.find((todo) => todo.id === targetId);
-
-  if (!todo) {
-    const err = new Error(`todo not found`);
-    err.statusCode = 404;
-    return next(err);
-  }
-
-  req.todo = todo;
-  next();
-});
-
-app
-  .route(`${endpoint}/:id(\\d+)?/completed`)
-  .put((req, res) => {
-    req.todo.completed = true;
-    res.json(req.todo);
-  })
-  .delete((req, res) => {
-    req.todo.completed = false;
-    res.json(req.todo);
-  });
-
-app.delete(`${endpoint}/:id(\\d+)?`, (req, res) => {
-  todos = todos.filter(todo => todo !== req.todo)
-  res.status(204).end()
-})
 
 app.use((err, req, res, next) => {
   console.log(err);
@@ -87,7 +80,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀server is up and run at ${serverUrl}`);
+  console.log(`🚀server is up and running at ${serverUrl}`);
 });
 
 const dev = process.env.NODE_ENV !== "production";
@@ -100,3 +93,9 @@ nextApp.prepare().then(
     process.exit(1);
   }
 );
+
+const onUpdateTodos = () => {
+  sseId++;
+  const data = JSON.stringify(todos);
+  sseSenders.forEach((send) => send(sseId, data));
+};

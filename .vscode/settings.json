@@ -1,5 +1,4 @@
 {
-  "python.analysis.typeCheckingMode": "basic",
   "javascript.suggestionActions.enabled": false,
   "liveshare.accessibility.soundsEnabled": false,
   "liveshare.accessibility.voiceEnabled": false
